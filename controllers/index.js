@@ -1,0 +1,1 @@
+export { rootController } from './root';

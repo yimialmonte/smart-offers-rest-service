@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node -r esm ./node_modules/nodemon/bin/nodemon.js ."
+    "dev": "node -r esm ./node_modules/nodemon/bin/nodemon.js .",
+    "prettier": "prettier --write **/*.js"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^7.2.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "prettier": "2.0.5"
   }
 }

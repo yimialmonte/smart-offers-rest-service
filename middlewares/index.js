@@ -1,5 +1,5 @@
-import defaultMiddleware from './default';
+import defaultMiddleware from './default'
 
 export default function registerMiddlewares(server) {
-  defaultMiddleware(server);
+  defaultMiddleware(server)
 }

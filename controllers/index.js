@@ -1,1 +1,1 @@
-export { rootController } from './root';
+export { rootController } from './root'

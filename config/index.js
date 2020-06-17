@@ -1,1 +1,1 @@
-export { server } from './express-server';
+export { server } from './express-server'

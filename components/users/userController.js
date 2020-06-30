@@ -1,6 +1,6 @@
 import User from './user'
 
-const registerUser = async(req, res) => {
+const register = async(req, res) => {
   try {
     const user = new User(req.body)
     await user.save()
@@ -13,5 +13,5 @@ const registerUser = async(req, res) => {
 }
 
 export default {
-  registerUser
+  register
 }

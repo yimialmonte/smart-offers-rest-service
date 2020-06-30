@@ -7,7 +7,7 @@ const RegisterSchema = Yup.object().shape({
   password: Yup.string().min(6).required()
 })
 
-const RegisterUser = async (req, res, next) => {
+const register = async (req, res, next) => {
   const { name, email, password } = req.body
 
   try {
@@ -25,5 +25,5 @@ const RegisterUser = async (req, res, next) => {
 }
 
 export default {
-  RegisterUser
+  register
 }

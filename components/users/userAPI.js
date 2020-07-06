@@ -4,4 +4,8 @@ import userValidations from './userValidations'
 
 const userRouter = new Router()
 
-userRouter.post('/login', userValidations.register, userController.register)
+userRouter.post('/users/register', userValidations.register, userController.register)
+
+export {
+  userRouter
+}

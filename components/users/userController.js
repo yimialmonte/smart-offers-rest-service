@@ -2,7 +2,6 @@ import User from './user'
 
 const register = async(req, res) => {
   try {
-    console.log(req.body)
     const user = new User(req.body)
     await user.save()
 

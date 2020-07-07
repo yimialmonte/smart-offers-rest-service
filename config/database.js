@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
+import env from '../env'
 
 export default function db() {
-  mongoose.connect('mongodb://127.0.0.1:27017/smart-offer', {
+  mongoose.connect(env.databaseurl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false

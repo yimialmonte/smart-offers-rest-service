@@ -4,7 +4,7 @@ import User from './user'
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required(),
   email: Yup.string().email().required(),
-  password: Yup.string().min(6).required()
+  password: Yup.string().min(8).required()
 })
 
 const register = async (req, res, next) => {

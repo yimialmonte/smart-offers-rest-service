@@ -6,7 +6,7 @@ Smart offers backend Rest/API
 
 ## Requirements
 
-For development, you will only need Node.js and a node global package, npm, installed in your environement.
+For development, you will only need Node.js and a node global package, npm, installed in your environment.
 
 ### Node
 
@@ -39,6 +39,19 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
 ###
 
+## Setup
+Create a file called .env in the repository root which should have the following structure.
+    $ DATABASE_URL=<databaseUrl>
+
 ## Running the project
 
     $ npm run dev
+
+
+License
+----
+
+MIT
+
+
+**Free Software, Hell Yeah!**

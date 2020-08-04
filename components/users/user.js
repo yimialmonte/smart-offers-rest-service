@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   },
   tokens: [
     {
-      tokens: {
+      token: {
         type: String,
         required: true,
       },
@@ -39,16 +39,16 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.generateToken = async function () {
   const user = this
   const secretKey = process.env.SECRET_KEY || 'secret'
-
   const token = jwt.sign({ _id: user._id.toString() }, secretKey)
-
   user.tokens = user.tokens.concat({ token })
   await user.save()
   return token
 }
 
-userSchema.static.findUser = async (email, password) => {
+userSchema.statics.findUser = async (email, password) => {
+
   const user = await User.findOne({ email });
+
   const errorMessage = 'Unable to login';
 
   if(!user) throw new Error(errorMessage)
@@ -57,6 +57,15 @@ userSchema.static.findUser = async (email, password) => {
   if(!passwordMatch) throw new Error(errorMessage)
 
   return user
+}
+
+userSchema.methods.toJSON = function() {
+  const user = this;
+  const userObject = user.toObject()
+  delete userObject.password
+  delete userObject.tokens
+  delete userObject._id
+  return userObject
 }
 
 const User = new mongoose.model('User', userSchema)

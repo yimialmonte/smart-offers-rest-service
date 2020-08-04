@@ -1,6 +1,5 @@
 import * as Yup from 'yup'
 import User from './user'
-import e from 'express'
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -40,7 +39,4 @@ const loginValidation = async (req, res, next) => {
   next()
 }
 
-export {
-  registerValidation,
-  loginValidation
-}
+export { registerValidation, loginValidation }

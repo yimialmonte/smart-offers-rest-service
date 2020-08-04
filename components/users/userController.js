@@ -1,17 +1,25 @@
 import User from './user'
 
-const register = async(req, res) => {
+const registerController = async (req, res) => {
   try {
     const user = new User(req.body)
     await user.save()
 
     res.status(201).send({ user })
-  }
-  catch (error) {
-   res.status(500).send(error)
+  } catch (error) {
+    res.status(500).send(error)
   }
 }
 
-export default {
-  register
+const loginController = async (req, res) => {
+  const { email, password } = req.body
+  try {
+    const user = await User.findUser(email, password)
+    const token = await user.generateToken()
+    res.send({ user, token })
+  } catch (error) {
+    res.status(400).send(error)
+  }
 }
+
+export { registerController, loginController }

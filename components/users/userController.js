@@ -17,7 +17,7 @@ const loginController = async (req, res) => {
   try {
     const user = await User.findUserByCredencials(email, password)
     const token = await user.generateToken()
-    res.send({ user, token })
+    res.send({ token })
   } catch (error) {
     res.status(400).send(error)
   }

@@ -23,4 +23,14 @@ const loginController = async (req, res) => {
   }
 }
 
-export { registerController, loginController }
+const logoutController = async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter((token) => token !== req.token)
+    await req.user.save()
+    res.send()
+  } catch (error) {
+    res.status(500).send()
+  }
+}
+
+export { registerController, loginController, logoutController }

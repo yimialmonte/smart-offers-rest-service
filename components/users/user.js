@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import env from '../../env'
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -38,7 +39,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.generateToken = async function () {
   const user = this
-  const secretKey = process.env.SECRET_KEY
+  const secretKey = env.secretKey
   const token = jwt.sign({ _id: user._id.toString() }, secretKey)
   user.tokens = user.tokens.concat({ token })
   await user.save()

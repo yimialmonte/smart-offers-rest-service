@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken'
 import User from '../users/user'
+import env from '../../env'
 
 const auth = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '')
-    const decoded = jwt.decode(token, process.env.SECRET_KEY)
+    const decoded = jwt.decode(token, env.secretKey)
     const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
     if (!user) throw new Error('')
 

@@ -3,6 +3,8 @@ import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import env from '../../env'
 
+const minPasswordLength = Number(env.minPasswordLength);
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,7 +18,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 8,
+    minlength: minPasswordLength,
   },
   tokens: [
     {
@@ -32,8 +34,7 @@ userSchema.pre('save', async function (next) {
   const user = this
 
   if (!user.isModified('password')) return
-
-  user.password = await bcryptjs.hash(user.password, 8)
+  user.password = await bcryptjs.hash(user.password, minPasswordLength)
   next()
 })
 
@@ -47,6 +48,7 @@ userSchema.methods.generateToken = async function () {
 }
 
 userSchema.statics.findUserByCredencials = async (email, password) => {
+
   const user = await User.findOne({ email })
 
   const errorMessage = 'Unable to login'

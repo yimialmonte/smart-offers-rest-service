@@ -1,10 +1,11 @@
 import * as Yup from 'yup'
 import User from './user'
+import env from '../../env'
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required(),
   email: Yup.string().email().required(),
-  password: Yup.string().min(8).required(),
+  password: Yup.string().min(Number(env.minPasswordLength)).required(),
 })
 
 const registerValidation = async (req, res, next) => {
@@ -20,6 +21,7 @@ const registerValidation = async (req, res, next) => {
   } catch (error) {
     return res.status(422).json({ [error.path]: error.message })
   }
+
   next()
 }
 
@@ -30,6 +32,7 @@ const LoginSchema = Yup.object().shape({
 
 const loginValidation = async (req, res, next) => {
   const { email, password } = req.body
+
   try {
     await LoginSchema.validate({ email, password })
   } catch (error) {

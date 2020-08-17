@@ -13,7 +13,6 @@ const registerController = async (req, res) => {
 
 const loginController = async (req, res) => {
   const { email, password } = req.body
-
   try {
     const user = await User.findUserByCredencials(email, password)
     const token = await user.generateToken()

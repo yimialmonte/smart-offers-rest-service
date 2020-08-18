@@ -1,31 +1,70 @@
 import mongoose from 'mongoose'
 import bcryptjs from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import env from '../../env'
+
+const minPasswordLength = 8;
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 8
-  }
+    minlength: minPasswordLength,
+  },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 })
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   const user = this
 
-  if(!user.isModified('password')) return
-
-  user.password = await bcryptjs.hash(user.password, 8)
+  if (!user.isModified('password')) return
+  user.password = await bcryptjs.hash(user.password, minPasswordLength)
   next()
 })
+
+userSchema.methods.generateToken = async function () {
+  const user = this
+  const secretKey = env.secretKey
+  const token = jwt.sign({ _id: user._id.toString() }, secretKey)
+  user.tokens = user.tokens.concat({ token })
+  await user.save()
+  return token
+}
+
+userSchema.statics.findUserByCredencials = async (email, password) => {
+
+  const user = await User.findOne({ email })
+
+  const errorMessage = 'Unable to login'
+
+  if (!user) throw new Error(errorMessage)
+
+  const passwordMatch = await bcryptjs.compare(password, user.password)
+  if (!passwordMatch) throw new Error(errorMessage)
+
+  return user
+}
+
+userSchema.methods.toJSON = function () {
+  const { name, email } = this
+  return { name, email }
+}
 
 const User = new mongoose.model('User', userSchema)
 

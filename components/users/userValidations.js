@@ -1,11 +1,12 @@
 import * as Yup from 'yup'
 import User from './user'
-import env from '../../env'
+
+const minPasswordLength = 8
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required(),
   email: Yup.string().email().required(),
-  password: Yup.string().min(Number(env.minPasswordLength)).required(),
+  password: Yup.string().min(minPasswordLength).required(),
 })
 
 const registerValidation = async (req, res, next) => {

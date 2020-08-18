@@ -3,7 +3,7 @@ import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import env from '../../env'
 
-const minPasswordLength = Number(env.minPasswordLength);
+const minPasswordLength = 8;
 
 const userSchema = new mongoose.Schema({
   name: {

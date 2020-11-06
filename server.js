@@ -7,7 +7,7 @@ import registerMiddlewares from './middlewares'
 async function main() {
   registerMiddlewares(server)
   server.use('/v1', userRouter)
-  server.use('/offers', offerRoute)
+  server.use('/v1/offers', offerRoute)
   server.listen()
 }
 

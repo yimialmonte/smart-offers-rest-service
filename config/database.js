@@ -5,6 +5,7 @@ export default function db() {
   mongoose.connect(env.databaseUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
   });
 }

@@ -1,4 +1,5 @@
-import offers from '../../data/offers';
+import Offer from './Model'
+import offers from '../../data/offers'
 
 const getOffers = async (req, res) => {
   try {
@@ -11,4 +12,14 @@ const getOffers = async (req, res) => {
   }
 }
 
-export { getOffers }
+const createOffer = async (req, res) => {
+  try {
+    const offer = new Offer(req.body)
+    await offer.save()
+    res.status(201).send({ offer })
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
+export { getOffers, createOffer }

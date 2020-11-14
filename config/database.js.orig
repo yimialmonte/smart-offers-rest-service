@@ -6,6 +6,10 @@ export default function db() {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
+<<<<<<< HEAD
+    useUnifiedTopology: true
+=======
     useUnifiedTopology: true,
+>>>>>>> e2d7ea0e8e5bf999c8efd6676054d530fd9b5ece
   });
 }
